@@ -4,3 +4,6 @@ AIzaSyAVSMbi0XD8TzxPXqAEpGO6-VhcxjPJkdg
 https://console.cloud.google.com/apis/credentials?project=integral-magnet-282203
 
 https://www.googleapis.com/youtube/v3/search?part=snippet&q=тут запрос&maxResults=2&key=AIzaSyAVSMbi0XD8TzxPXqAEpGO6-VhcxjPJkdg
+
+получаем статистику
+https://www.googleapis.com/youtube/v3/videos?part=statistics&id=Uc7TUZKLlgA&key=AIzaSyAVSMbi0XD8TzxPXqAEpGO6-VhcxjPJkdg

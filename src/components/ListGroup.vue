@@ -1,36 +1,57 @@
 <template>
   <div class="container-card_list">
-    <div class="card" v-for="card in getAllVideos" :key="card.channelId">
-      <a href="">
-        <img :src="card.thumbnails.default" alt="кадр из видео" class="card__img">
+    <div class="card" v-for="card in getAllVideos" :key="card.id.videoId">
+      <a href="#"
+        @click="startVideo(card.id.videoId)"
+      >
+        <img :src="card.snippet.thumbnails.default.url" alt="кадр из видео" class="card__img">
       </a>
       <div class='card__text-container'>
         <p class="card__text">
-          {{card.title}}
+          {{card.snippet.title}}
         </p>
         <p class="card__text _gray">
-          {{card.description}}
+          {{card.snippet.description}}
         </p>
         <p class="card__text _gray">
-          НАДО ПОПРАВИТЬ
+          {{card.statistics.viewCount}} просмотров
         </p>
       </div>
     </div>
+    <modal-video
+      :showVideo="showVideo"
+      :activeVideo="activeVideo"
+      @close-modal="closeModalVideo"
+    >
+    </modal-video>
   </div>
 </template>
 
 <script>
 import videoImg from '@/assets/images/Video.png';
 import { mapGetters } from 'vuex';
+import ModalVideo from './ModalVideo.vue';
 
 export default {
+  components: { ModalVideo },
   data() {
     return {
       videoImg,
+      showVideo: false,
+      activeVideo: '',
     };
   },
   computed: {
     ...mapGetters(['getAllVideos']),
+  },
+  methods: {
+    startVideo(idVideo) {
+      this.showVideo = true;
+      this.activeVideo = idVideo;
+    },
+    closeModalVideo() {
+      this.showVideo = false;
+    },
   },
 };
 </script>
