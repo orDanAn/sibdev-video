@@ -15,4 +15,10 @@ export default {
   .conteiner-content {
     width: 1040px;
   }
+
+  @media screen and (max-width: 1021px) {
+    .conteiner-content {
+      width: auto;
+    }
+  }
 </style>

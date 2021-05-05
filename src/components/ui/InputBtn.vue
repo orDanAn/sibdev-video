@@ -99,7 +99,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
   .qwe {
     background: rgba(197, 228, 249, 0.3);
   }
@@ -124,4 +124,16 @@ export default {
     font-size: 16px;
     line-height: 24px;
   }
+
+  @media screen and (max-width: 695px) {
+    .input-container {
+      min-width: 400px;
+    }
+  }
+   @media screen and (max-width: 500px) {
+    .input-container {
+      min-width: auto;
+    }
+  }
+
 </style>
