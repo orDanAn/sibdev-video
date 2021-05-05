@@ -2,7 +2,7 @@
   <div class="container-card_list">
     <div class="card" v-for="card in getAllVideos" :key="card.id.videoId">
       <a href="#"
-        @click="startVideo(card.id.videoId)"
+        @click.prevent="startVideo(card.id.videoId)"
       >
         <img :src="card.snippet.thumbnails.default.url" alt="кадр из видео" class="card__img">
       </a>
@@ -14,7 +14,7 @@
           {{card.snippet.description}}
         </p>
         <p class="card__text _gray">
-          {{card.statistics.viewCount}} просмотров
+          {{card.statistics ? card.statistics.viewCount : 'нет данных'}} просмотров
         </p>
       </div>
     </div>
@@ -72,7 +72,9 @@ export default {
     font-size: 16px;
     line-height: 20px;
   }
-
+  .card__text:first-of-type {
+    margin-top: 0;
+  }
   ._gray {
     color: rgba(23, 23, 25, 0.3);
   }

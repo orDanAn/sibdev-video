@@ -1,13 +1,14 @@
 <template>
   <div id="app">
-    <MainLayout>
-      <router-view/>
-    </MainLayout>
+    <component :is="layout">
+      <router-view />
+    </component>
   </div>
 </template>
 
 <script>
 import MainLayout from './layouts/MainLayot.vue';
+import EmpatyLayout from './layouts/EmpatyLayout.vue';
 
 export default {
   data() {
@@ -15,9 +16,14 @@ export default {
 
     };
   },
-
+  computed: {
+    layout() {
+      return `${this.$route.meta.layout || 'main'}-layout`;
+    },
+  },
   components: {
     MainLayout,
+    EmpatyLayout,
   },
 };
 

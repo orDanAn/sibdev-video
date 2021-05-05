@@ -33,9 +33,9 @@
       <el-form-item label="Сортировать по">
         <el-select v-model="form.sort" placeholder="">
           <el-option label="по релевантности" value="relevance"></el-option>
-          <el-option label="по дате создания" value="date "></el-option>
-          <el-option label="по алфавиту" value="title "></el-option>
-          <el-option label="по рейтенгу" value="rating  "></el-option>
+          <el-option label="по дате создания" value="date"></el-option>
+          <el-option label="по алфавиту" value="title"></el-option>
+          <el-option label="по рейтенгу" value="rating"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="Максимальное количество">
@@ -50,7 +50,13 @@
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="$emit('cancel-form')">{{textCancel}}</el-button>
-      <el-button type="primary" @click="$emit('save-form')">{{textConfirm}}</el-button>
+      <el-button
+        type="primary"
+        @click="$emit('save-form', form)"
+        :disabled="Boolean(!form.request || !form.requestName)"
+      >
+        {{textConfirm}}
+      </el-button>
     </span>
   </el-dialog>
   </div>

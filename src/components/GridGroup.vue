@@ -1,33 +1,59 @@
 <template>
   <div class="container-card_grid">
-    <div class="card_grid" v-for="card in 15" :key="card">
-      <a href="">
-        <img class="card__img_gtid" :src="videoImg" alt="заставка видео">
+    <div class="card_grid" v-for="card in cards" :key="card.id.videoId">
+      <a href="#"
+        @click.prevent="startVideo(card.id.videoId)"
+      >
+        <img class="card__img_gtid" :src="card.snippet.thumbnails.default.url" alt="заставка видео">
       </a>
       <div class='card__text-container_grid'>
         <p class="card__text_grid">
-          Как кормить кошку натуралкой | Перечень полезных для кошек продуктов и
-          советы по составлению рациона
+          {{card.snippet.title}}
         </p>
         <p class="card__text_grid _gray">
-          Ветеринария и Кормление собак и кошек
+          {{card.snippet.description}}
         </p>
         <p class="card__text_grid _gray">
-          788 тыс. просмотров
+          {{card.statistics ? card.statistics.viewCount : 'нет данных'}} просмотров
         </p>
       </div>
     </div>
+    <modal-video
+      :showVideo="showVideo"
+      :activeVideo="activeVideo"
+      @close-modal="closeModalVideo"
+    >
+    </modal-video>
+
   </div>
 </template>
 
 <script>
 import videoImg from '@/assets/images/Video.png';
+import ModalVideo from './ModalVideo.vue';
 
 export default {
+  components: { ModalVideo },
   data() {
     return {
       videoImg,
+      showVideo: false,
+      activeVideo: '',
     };
+  },
+  computed: {
+    cards() {
+      return this.$store.getters.getAllVideos;
+    },
+  },
+  methods: {
+    startVideo(idVideo) {
+      this.showVideo = true;
+      this.activeVideo = idVideo;
+    },
+    closeModalVideo() {
+      this.showVideo = false;
+    },
   },
 };
 </script>

@@ -11,6 +11,7 @@
       type="primary"
       class="btn-input"
       @click="submitInput"
+      :disabled="inputValue === ''"
     >
       Найти
     </el-button>
@@ -68,6 +69,10 @@ export default {
   computed: {
     iconSaved() {
       // логика иконки, понять сохраненный запрос или нет
+      const saveReq = this.$store.getters.getSaveRequestVideo;
+      if (saveReq.length) {
+        return !!saveReq.filter((item) => item.requestBody.req === this.inputValue).length;
+      }
       return false;
     },
   },
@@ -84,6 +89,12 @@ export default {
     clickSave() {
       this.$emit('click-save', this.inputValue);
     },
+  },
+  async mounted() {
+    this.inputValue = this.$store.getters.getRequstText;
+    this.$store.commit('changeLoading', true);
+    await this.$store.dispatch('fetchSaveRequest');
+    this.$store.commit('changeLoading', false);
   },
 };
 </script>

@@ -1,31 +1,33 @@
 <template>
   <div class="main-container">
+    <a href="https://sibdev.pro/" class="logo">
+      <img :src="logo" alt="логотип">
+    </a>
     <el-header class="header">
       <el-menu
-        default-active="1"
+        :default-active="$route.path"
         mode="horizontal"
         text-color='#1390E5'
         active-text-color="#1390E5"
+        router
       >
-        <el-menu-item index="4" style="margin-left: 50px">
-          <a href="https://sibdev.pro/">
-            <img :src="logo" alt="логотип">
-          </a>
-        </el-menu-item>
-        <el-menu-item index="1" style="margin-left: 50px">
-          <router-link class="menu-item__link" to="/">
+        <el-menu-item
+          index="/"
+          style="margin-left: 150px"
+        >
             Поиск
-          </router-link>
         </el-menu-item>
-        <el-menu-item index="2">
-          <router-link class="menu-item__link" to="/favorites">
+        <el-menu-item
+          index="/favorites"
+        >
             Избранное
-          </router-link>
         </el-menu-item>
-        <el-menu-item index="3" class="menu-item__btn-exe">Выйти</el-menu-item>
+        <el-menu-item index="/login" @click="logout" class="menu-item__btn-exe">Выйти</el-menu-item>
       </el-menu>
     </el-header>
-    <el-main>
+    <el-main
+      v-loading="loading"
+    >
       <slot>
       </slot>
     </el-main>
@@ -40,6 +42,18 @@ export default {
     return {
       logo,
     };
+  },
+  computed: {
+    loading() {
+      return this.$store.getters.getLoading;
+    },
+  },
+  methods: {
+    async logout() {
+      this.$store.commit('changeLoading', true);
+      await this.$store.dispatch('logout');
+      this.$store.commit('changeLoading', false);
+    },
   },
 };
 </script>
@@ -59,8 +73,11 @@ export default {
     right: 50px;
   }
 
-  .menu-item__link {
-    text-decoration: none;
+  .logo {
+    position: absolute;
+    z-index: 200;
+    left: 50PX;
+    top: 9px;
   }
 
 </style>
